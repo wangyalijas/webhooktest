@@ -3,10 +3,10 @@ const shell = require('shelljs')
 var createHandler = require('github-webhook-handler')
 var handler = createHandler({ path: '/webhook', secret: '123456' })
 
+const projects = ['webhooktest']
+
 const projectHandler = (event, action) => {
   const project = event.payload.repository.name // 提交的仓库名字
-  console.log(project, 'project');
-  console.log(projects, 'projects');
   if (projects.includes(project)) {
     console.log(new Date())
     shell.exec(`sh deploy.sh`, function (code, stdout, stderr) {
